@@ -77,15 +77,53 @@ fun DivisionScreen(
     }
 }
 @Composable
-fun EliminarButton(viewModel: DivisionViewModel, division: Division){
-    OutlinedButton(onClick = { viewModel.eliminar(division)}) {
-        Icon(
-            imageVector = Icons.Filled.Close,
-            contentDescription = "Eliminar icon",
-            tint = MaterialTheme.colorScheme.error
-        )
-    }
+fun NombreTextField(viewModel: DivisionViewModel) {
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text(text = "Nombre")},
+        value = viewModel.nombre,
+        onValueChange = { viewModel.nombre = it }
+    )
 }
+
+@Composable
+fun DividendoTextField(viewModel: DivisionViewModel) {
+    OutlinedTextField(
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        label = { Text(text = "Dividendo")},
+        value = viewModel.dividendo.toString(),
+        onValueChange = { viewModel.dividendo = it.toIntOrNull() ?: 0 }
+    )
+}
+@Composable
+fun DivisorTextField(viewModel: DivisionViewModel) {
+    OutlinedTextField(
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        label = { Text(text = "Divisor")},
+        value = viewModel.divisor.toString(),
+        onValueChange = { viewModel.divisor = it.toIntOrNull() ?: 0 }
+    )
+}
+@Composable
+fun CocienteTextField(viewModel: DivisionViewModel) {
+    OutlinedTextField(
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        label = { Text(text = "Cociente")},
+        value = viewModel.cociente.toString(),
+        onValueChange = { viewModel.cociente = it.toIntOrNull() ?: 0 }
+    )
+}
+
+@Composable
+fun ResiduoTextField(viewModel: DivisionViewModel) {
+    OutlinedTextField(
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        label = { Text(text = "Residuo")},
+        value = viewModel.residuo.toString(),
+        onValueChange = { viewModel.residuo = it.toIntOrNull() ?: 0 }
+    )
+}
+
 @Composable
 fun GuardarButton(viewModel: DivisionViewModel) {
     OutlinedButton(
@@ -94,6 +132,16 @@ fun GuardarButton(viewModel: DivisionViewModel) {
     ) {
         Icon(imageVector = Icons.Filled.Add, contentDescription = "Icono de más para guardar.")
         Text("Guardar")
+    }
+}
+@Composable
+fun EliminarButton(viewModel: DivisionViewModel, division: Division){
+    OutlinedButton(onClick = { viewModel.eliminar(division)}) {
+        Icon(
+            imageVector = Icons.Filled.Close,
+            contentDescription = "Eliminar icon",
+            tint = MaterialTheme.colorScheme.error
+        )
     }
 }
 
@@ -139,54 +187,4 @@ fun ContenedorItems(division: Division, viewModel: DivisionViewModel){
             Text("Residuo: ${division.residuo}")
         }
     }
-}
-
-@Composable
-fun ResiduoTextField(viewModel: DivisionViewModel) {
-    OutlinedTextField(
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        label = { Text(text = "Residuo")},
-        value = viewModel.residuo.toString(),
-        onValueChange = { viewModel.residuo = it.toIntOrNull() ?: 0 }
-    )
-}
-
-@Composable
-fun CocienteTextField(viewModel: DivisionViewModel) {
-    OutlinedTextField(
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        label = { Text(text = "Cociente")},
-        value = viewModel.cociente.toString(),
-        onValueChange = { viewModel.cociente = it.toIntOrNull() ?: 0 }
-    )
-}
-
-@Composable
-fun DivisorTextField(viewModel: DivisionViewModel) {
-    OutlinedTextField(
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        label = { Text(text = "Divisor")},
-        value = viewModel.divisor.toString(),
-        onValueChange = { viewModel.divisor = it.toIntOrNull() ?: 0 }
-    )
-}
-
-@Composable
-fun DividendoTextField(viewModel: DivisionViewModel) {
-    OutlinedTextField(
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        label = { Text(text = "Dividendo")},
-        value = viewModel.dividendo.toString(),
-        onValueChange = { viewModel.dividendo = it.toIntOrNull() ?: 0 }
-    )
-}
-
-@Composable
-fun NombreTextField(viewModel: DivisionViewModel) {
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
-        label = { Text(text = "Nombre")},
-        value = viewModel.nombre,
-        onValueChange = { viewModel.nombre = it }
-    )
 }
