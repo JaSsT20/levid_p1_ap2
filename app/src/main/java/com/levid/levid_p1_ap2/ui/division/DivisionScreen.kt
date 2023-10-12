@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -75,7 +76,16 @@ fun DivisionScreen(
         MostrarListaDivisiones(listaDivisiones, viewModel)
     }
 }
-
+@Composable
+fun EliminarButton(viewModel: DivisionViewModel, division: Division){
+    OutlinedButton(onClick = { viewModel.eliminar(division)}) {
+        Icon(
+            imageVector = Icons.Filled.Close,
+            contentDescription = "Eliminar icon",
+            tint = MaterialTheme.colorScheme.error
+        )
+    }
+}
 @Composable
 fun GuardarButton(viewModel: DivisionViewModel) {
     OutlinedButton(
@@ -115,11 +125,11 @@ fun ContenedorItems(division: Division, viewModel: DivisionViewModel){
             Text("Divisor: ${division.divisor}")
             Spacer(modifier = Modifier.padding(16.dp))
             Column {
-                if(viewModel.verificarDivision(division)){
-                    Text(text = "Válida.", color = Color.Green)
+                Row {
+                    Text(text = "Eliminar")
                 }
-                else{
-                    Text("Inválida.", color = Color.Red)
+                Row{
+                    EliminarButton(viewModel = viewModel, division = division)
                 }
             }
         }
