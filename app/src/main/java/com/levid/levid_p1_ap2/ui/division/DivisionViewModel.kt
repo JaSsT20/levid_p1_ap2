@@ -49,6 +49,11 @@ class DivisionViewModel @Inject constructor(
             }
         }
     }
+    fun eliminar(division: Division){
+        viewModelScope.launch {
+            divisionRepository.eliminar(division)
+        }
+    }
     private fun limpiarCampos(){
         nombre = ""
         dividendo = 0
