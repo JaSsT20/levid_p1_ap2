@@ -24,21 +24,53 @@ class DivisionViewModel @Inject constructor(
     var cociente by mutableStateOf(0)
     var residuo by mutableStateOf(0)
 
+    var mensaje by mutableStateOf("")
     val listaDivisiones: StateFlow<List<Division>> = divisionRepository.obtenerTodo()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
-    fun save(){
+    fun guardar(){
         viewModelScope.launch {
-            if(isValid()){
-                
+            if(camposNoVacios()){
+                if(divisorEsValido()){
+                    var division = Division(
+                        nombre = nombre,
+                        dividendo = dividendo,
+                        divisor = divisor,
+                        cociente = cociente,
+                        residuo = residuo
+                    )
+                    divisionRepository.guardar(division)
+
+                    limpiarCampos()
+                }
             }
         }
     }
-
-    private fun isValid(): Boolean{
+    private fun limpiarCampos(){
+        nombre = ""
+        dividendo = 0
+        divisor = 0
+        cociente = 0
+        residuo = 0
+    }
+    fun camposNoVacios(): Boolean{
         return !(nombre.isBlank() || dividendo <= 0 || divisor <= 0)
+    }
+    private fun divisorEsValido():Boolean{
+        return !(divisor > dividendo)
+    }
+
+    fun verificarDivision(division: Division):Boolean{
+        if(
+            (division.dividendo / division.divisor) != division.cociente
+            ||
+            (division.dividendo % division.divisor) != division.residuo
+        ){
+            return false
+        }
+        return (division.dividendo / division.divisor) == division.cociente
     }
 }
