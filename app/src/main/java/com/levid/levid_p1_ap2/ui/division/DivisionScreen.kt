@@ -82,8 +82,12 @@ fun NombreTextField(viewModel: DivisionViewModel) {
         modifier = Modifier.fillMaxWidth(),
         label = { Text(text = "Nombre")},
         value = viewModel.nombre,
-        onValueChange = { viewModel.nombre = it }
+        onValueChange = {
+            viewModel.nombre = it
+            viewModel.nombreMsg = ""
+        }
     )
+    Text(text = viewModel.nombreMsg, color = MaterialTheme.colorScheme.error)
 }
 
 @Composable
@@ -92,8 +96,12 @@ fun DividendoTextField(viewModel: DivisionViewModel) {
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         label = { Text(text = "Dividendo")},
         value = viewModel.dividendo.toString(),
-        onValueChange = { viewModel.dividendo = it.toIntOrNull() ?: 0 }
+        onValueChange = {
+            viewModel.dividendo = it.toIntOrNull() ?: 0
+            viewModel.dividendoMsg = ""
+        }
     )
+    Text(text = viewModel.dividendoMsg, color = MaterialTheme.colorScheme.error)
 }
 @Composable
 fun DivisorTextField(viewModel: DivisionViewModel) {
@@ -101,8 +109,12 @@ fun DivisorTextField(viewModel: DivisionViewModel) {
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         label = { Text(text = "Divisor")},
         value = viewModel.divisor.toString(),
-        onValueChange = { viewModel.divisor = it.toIntOrNull() ?: 0 }
+        onValueChange = {
+            viewModel.divisor = it.toIntOrNull() ?: 0
+            viewModel.divisorMsg = ""
+        }
     )
+    Text(text = viewModel.divisorMsg, color = MaterialTheme.colorScheme.error)
 }
 @Composable
 fun CocienteTextField(viewModel: DivisionViewModel) {
@@ -110,8 +122,12 @@ fun CocienteTextField(viewModel: DivisionViewModel) {
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         label = { Text(text = "Cociente")},
         value = viewModel.cociente.toString(),
-        onValueChange = { viewModel.cociente = it.toIntOrNull() ?: 0 }
+        onValueChange = {
+            viewModel.cociente = it.toIntOrNull() ?: 0
+            viewModel.cocienteMsg = ""
+        }
     )
+    Text(text = viewModel.cocienteMsg, color = MaterialTheme.colorScheme.error)
 }
 
 @Composable
@@ -120,8 +136,12 @@ fun ResiduoTextField(viewModel: DivisionViewModel) {
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         label = { Text(text = "Residuo")},
         value = viewModel.residuo.toString(),
-        onValueChange = { viewModel.residuo = it.toIntOrNull() ?: 0 }
+        onValueChange = {
+            viewModel.residuo = it.toIntOrNull() ?: 0
+            viewModel.residuoMsg = ""
+        }
     )
+    Text(text = viewModel.residuoMsg, color = MaterialTheme.colorScheme.error)
 }
 
 @Composable
