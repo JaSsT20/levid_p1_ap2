@@ -9,4 +9,5 @@ class DivisionRepository @Inject constructor(
 ) {
     suspend fun guardar(division: Division) = divisionDao.guardar(division)
     fun obtenerTodo() = divisionDao.obtenerTodo()
+    suspend fun eliminar(division: Division) = divisionDao.eliminar(division)
 }
