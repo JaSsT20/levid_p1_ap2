@@ -24,7 +24,11 @@ class DivisionViewModel @Inject constructor(
     var cociente by mutableStateOf(0)
     var residuo by mutableStateOf(0)
 
-    var mensaje by mutableStateOf("")
+    var nombreMsg by mutableStateOf("")
+    var dividendoMsg by mutableStateOf("")
+    var divisorMsg by mutableStateOf("")
+    var cocienteMsg by mutableStateOf("")
+    var residuoMsg by mutableStateOf("")
     val listaDivisiones: StateFlow<List<Division>> = divisionRepository.obtenerTodo()
         .stateIn(
             scope = viewModelScope,
@@ -33,19 +37,16 @@ class DivisionViewModel @Inject constructor(
         )
     fun guardar(){
         viewModelScope.launch {
-            if(camposNoVacios()){
-                if(divisorEsValido()){
-                    var division = Division(
-                        nombre = nombre,
-                        dividendo = dividendo,
-                        divisor = divisor,
-                        cociente = cociente,
-                        residuo = residuo
-                    )
-                    divisionRepository.guardar(division)
-
-                    limpiarCampos()
-                }
+            if(camposNoVaciosYValidos()){
+                val division = Division(
+                    nombre = nombre,
+                    dividendo = dividendo,
+                    divisor = divisor,
+                    cociente = cociente,
+                    residuo = residuo
+                )
+                divisionRepository.guardar(division)
+                limpiarCampos()
             }
         }
     }
@@ -61,16 +62,32 @@ class DivisionViewModel @Inject constructor(
         cociente = 0
         residuo = 0
     }
-    fun camposNoVacios(): Boolean{
-        return !(nombre.isBlank() || dividendo <= 0 || divisor <= 0)
+    private fun camposNoVaciosYValidos(): Boolean{
+        if(nombre.isBlank()) {
+            nombreMsg = "El nombre es obligatorio."
+            return false
+        }
+        else if(dividendo <= 0) {
+            dividendoMsg = "El dividendo no puede ser menor o igual a cero."
+            return false
+        }
+        else if(divisor <= 0 || divisor > dividendo){
+            divisorMsg = "Divisor inválido."
+            return false
+        }
+        else if(cociente <= 0 || cociente != (dividendo / divisor)){
+            cocienteMsg = "Cociente inválido."
+            return false
+        }
+        else if(residuo < 0 || residuo != (dividendo%divisor)){
+            residuoMsg = "Residuo inválido."
+            return false
+        }
+        else{
+            return true
+        }
     }
     private fun divisorEsValido():Boolean{
         return !(divisor > dividendo)
-    }
-
-    fun verificarDivision(division: Division):Boolean{
-        return !((division.dividendo / division.divisor) != division.cociente
-                ||
-                (division.dividendo % division.divisor) != division.residuo)
     }
 }
