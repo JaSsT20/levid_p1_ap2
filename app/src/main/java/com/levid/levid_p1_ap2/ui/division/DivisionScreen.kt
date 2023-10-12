@@ -107,7 +107,7 @@ fun ContenedorItems(division: Division, viewModel: DivisionViewModel){
             .padding(8.dp)
             .border(BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline))
     ) {
-        Text(text = "${division.nombre}")
+        Text(text = division.nombre)
         Spacer(modifier = Modifier.padding(8.dp))
         Row{
             Text("Dividendo: ${division.dividendo}")

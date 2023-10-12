@@ -12,6 +12,6 @@ interface DivisionDao {
     @Upsert
     suspend fun guardar(division: Division)
 
-    @Query("SELECT * FROM Divisiones Order by nombre")
+    @Query("SELECT * FROM Divisiones")
     fun obtenerTodo() : Flow<List<Division>>
 }

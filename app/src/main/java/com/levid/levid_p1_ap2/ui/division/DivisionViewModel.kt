@@ -64,13 +64,8 @@ class DivisionViewModel @Inject constructor(
     }
 
     fun verificarDivision(division: Division):Boolean{
-        if(
-            (division.dividendo / division.divisor) != division.cociente
-            ||
-            (division.dividendo % division.divisor) != division.residuo
-        ){
-            return false
-        }
-        return (division.dividendo / division.divisor) == division.cociente
+        return !((division.dividendo / division.divisor) != division.cociente
+                ||
+                (division.dividendo % division.divisor) != division.residuo)
     }
 }
